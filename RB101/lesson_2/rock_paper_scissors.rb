@@ -1,18 +1,22 @@
-CHOICES = ['rock', 'paper', 'scissors']
+CHOICES = %w(rock paper scissors)
 
 def prompt(content)
-  puts ("__> #{content} >")
+  puts("__> #{content} >")
+end
+
+def win?(first, second)
+  (first == "rock" && second == "scissors") ||
+    (first == "paper" && second == "rock") ||
+    (first == "scissors" && second == "paper")
 end
 
 def display_results(player, pc)
-  if (player == "rock" && pc == "scissors") ||
-      (player == "paper" && pc == "rock") ||
-      (player == "scissors" && pc == "paper")
-      prompt ("Player Won!")
-  elsif (player == pc)
-      prompt("It's a tie!")
+  if win?(player, pc)
+    prompt("Player Won!")
+  elsif win?(pc, player)
+    prompt("The Computer outsmarted thee!")
   else
-      prompt("The Computer outsmarted thee!")
+    prompt("It's a tie!")
   end
 end
 
@@ -21,7 +25,7 @@ loop do
   loop do
     prompt("Pick your weapon: #{CHOICES.join(', ')}")
     choice = gets.chomp
-    break if (CHOICES.include?(choice))
+    break if CHOICES.include?(choice)
     prompt("Blind you are.....")
   end
 
