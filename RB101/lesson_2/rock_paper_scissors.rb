@@ -1,22 +1,35 @@
-CHOICES = %w(rock paper scissors)
+require "pry"
+
+CHOICES = %w(rock paper scissors spock lizzard)
 
 def prompt(content)
-  puts("__> #{content} >")
+  puts("--> #{content}")
 end
 
 def win?(first, second)
-  (first == "rock" && second == "scissors") ||
-    (first == "paper" && second == "rock") ||
-    (first == "scissors" && second == "paper")
+  winning_combinations = {
+                          'rock': ['scissors', 'lizzard'],
+                          'paper': ['rock', 'spock'],
+                          'scissors': ['paper', 'lizard'],
+                          'spock': ['scissors', 'rock'],
+                          'lizzard': ['paper', 'spock']
+                        }
+
+  # binding.pry
+  if (winning_combinations[first.to_sym].include?(second))
+    return first
+  elsif (winning_combinations[second.to_sym].include?(first))
+    return second
+  end
 end
 
 def display_results(player, pc)
-  if win?(player, pc)
-    prompt("Player Won!")
-  elsif win?(pc, player)
-    prompt("The Computer outsmarted thee!")
+  if win?(player, pc) == player
+    prompt("Player won!")
+  elsif win?(player, pc) == pc
+    prompt("I won!")
   else
-    prompt("It's a tie!")
+    prompt("Neither won!")
   end
 end
 
@@ -30,7 +43,7 @@ loop do
   end
 
   computer = CHOICES.sample
-  prompt("The Computer chose #{computer}")
+  prompt("I chose #{computer}")
 
   display_results(choice, computer)
 
