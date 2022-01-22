@@ -43,4 +43,11 @@ puts "result is #{result}"
 
 # 7.
 # No, ruby is not true pass by reference, in this case it will not modify the original hash
+# WRONG ^^^ ... In this case, it is passing by reference and the original hash is being destroyed
+
+# 8.
+# It will return "paper"
+
+# 9.
+# It will return "No"
 
